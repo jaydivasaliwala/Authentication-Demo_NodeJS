@@ -1,5 +1,5 @@
 const responseModel = (res,status_code, message, error_status, data) => {
-    if(error_status === true)
+    if(error_status === true || data === false)
     {
         res.status(500).json({
             status_code:500,
