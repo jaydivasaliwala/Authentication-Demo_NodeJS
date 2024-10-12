@@ -1,4 +1,4 @@
-const { DataGet, UserReg } = require("../Business/UserBusiness")
+const { DataGet, UserReg, UserLogin } = require("../Business/UserBusiness")
 const { responseModel } = require("../Model/Response")
 
 const GetData = (req,res) => {
@@ -11,4 +11,9 @@ const Register = (req,res) => {
     responseModel(res, 200, "User Added",false,result)
 }
 
-module.exports = {GetData, Register}
+const Login = (req,res) => {
+    const result = UserLogin(req.body)
+    responseModel(res,200,"Verified",false,result)
+}
+
+module.exports = {GetData, Register, Login}
