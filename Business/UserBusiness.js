@@ -1,5 +1,8 @@
 const sha256 = require('sha256')
 const fs = require('fs')
+const jsonwebtoken = require('jsonwebtoken')
+const dotenv = require('dotenv').config()
+
 const DataGet = () => {
     return result =  JSON.parse(fs.readFileSync("Static/data.json")).data.map(m => ({user_name:m.user_name,name:m.name,age:m.age}))
 }
@@ -21,4 +24,10 @@ const UserReg = (req_data) => {
     return true;
 }
 
-module.exports = {DataGet, UserReg}
+const UserLogin = (req_body) => {
+    const pass = sha256(req_body.password)
+    const data = JSON.parse(fs.readFileSync("Static/data.json")).data.filter(f => f.user_name === req_body.user_name && f.password === pass)
+    return jsonwebtoken.sign(req_body,dotenv.parsed.KEY)
+}
+
+module.exports = {DataGet, UserReg, UserLogin}
