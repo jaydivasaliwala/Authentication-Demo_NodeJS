@@ -7,9 +7,9 @@ const Auth = (req,res,next) => {
         const token = req.headers.authorization.replace("Bearer ", "");
         try
         {
-            const _id = jsonwebtoken.verify(token,dotenv.parsed.KEY)
-            console.log(_id)
-            if(req.params.id === _id)
+            const _id = jsonwebtoken.verify(token,dotenv.parsed.KEY).id
+            
+            if(req.params.id == _id)
             {
                 next();
             }
