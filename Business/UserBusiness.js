@@ -27,7 +27,7 @@ const UserReg = (req_data) => {
 const UserLogin = (req_body) => {
     const pass = sha256(req_body.password)
     const data = JSON.parse(fs.readFileSync("Static/data.json")).data.filter(f => f.user_name === req_body.user_name && f.password === pass)
-    return jsonwebtoken.sign(req_body,dotenv.parsed.KEY)
+    return data.length === 0?false:jsonwebtoken.sign(data[0],dotenv.parsed.KEY,{expiresIn:'1d'})
 }
 
 module.exports = {DataGet, UserReg, UserLogin}
